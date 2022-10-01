@@ -9,9 +9,14 @@ export const fetchUniversityByName = createAsyncThunk(
         try{
             const result = await axios('http://universities.hipolabs.com/search?name=' + universityName);
             if(result.data.length === 0){
-                message.error('Custom error');
+                message.error({
+                    content: 'There is no data like this 🥲',
+                    style: {
+                        marginTop: '20vh'
+                    }
+                }, 1);
                 return {
-                    data: 'Custom Error',
+                    data: 'There is no data like this 🥲',
                     type: 'error'
                 }
             }

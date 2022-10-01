@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useSelector, useDispatch } from 'react-redux';
 import {DataType, fetchUniversityByName, toggleLoading} from './universitiesState';
@@ -27,9 +27,19 @@ function App() {
     const dispatch = useDispatch<AppDispatch>();
 
     function getUniversityByName(){
-        if(inputRef.current){
+        // console.log(inputRef.current?.value)
+        if(inputRef.current?.value){
             dispatch(toggleLoading(true));
             dispatch(fetchUniversityByName(inputRef.current?.value))
+        }
+        else{
+            message.warning({
+                content: 'Input cannot be empty 🙄',
+                // className: 'custom-class',
+                style: {
+                    marginTop: '20vh',
+                },
+            }, 1);
         }
     }
 
